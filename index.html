@@ -46,7 +46,9 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    .logo { font-size: 0.9rem; font-weight: 600; color: var(--text); text-decoration: none; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo img { height: 24px; width: auto; }
+    .logo span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
 
     .nav-links {
       display: flex;
@@ -188,7 +190,7 @@
 <body>
 
 <nav>
-  <a href="index.html" class="logo">AIVerify</a>
+  <a href="index.html" class="logo"><img src="logo.png" alt="AIVerify"><span>AIVerify</span></a>
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="product.html">Product</a>
