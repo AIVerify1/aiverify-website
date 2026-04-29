@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIVerify — Product</title>
+  <meta name="description" content="See how AIVerify detects AI-generated images, text, and video with a detailed confidence score and breakdown.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent:  #7B6CF6;
+      --bg:      #060606;
+      --surface: #0c0c0c;
+      --border:  #1a1a1a;
+      --text:    #f0f0f0;
+      --muted:   #525252;
+      --mono:    'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6,6,6,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .logo { font-size: 0.9rem; font-weight: 600; color: var(--text); text-decoration: none; }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.12s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none; padding: 7px 18px; border-radius: 5px;
+      font-size: 0.82rem; font-weight: 500; transition: opacity 0.12s; white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.82; }
+    .btn-lg { padding: 10px 26px; font-size: 0.88rem; font-weight: 600; }
+
+    /* Page header */
+    .page-header {
+      padding: 72px 48px 60px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+
+    /* Screenshot section */
+    .screenshot-section {
+      border-top: 1px solid var(--border);
+      padding: 60px 48px;
+    }
+
+    .screenshot-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .screenshot-text h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .screenshot-text p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .screenshot-img {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screenshot-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .screenshot-img .placeholder {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .screenshot-img .placeholder p {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #2a2a2a;
+      letter-spacing: 0.5px;
+    }
+
+    /* Features list */
+    .features-section {
+      border-top: 1px solid var(--border);
+      padding: 60px 48px;
+    }
+
+    .features-inner { max-width: 960px; margin: 0 auto; }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 36px;
+    }
+
+    .feature-item {
+      background: var(--bg);
+      padding: 28px 24px;
+    }
+
+    .feature-num {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 12px;
+    }
+
+    .feature-item h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 8px; }
+    .feature-item p  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* Hotkeys section */
+    .hotkeys-section {
+      border-top: 1px solid var(--border);
+      padding: 60px 48px;
+    }
+
+    .hotkeys-inner { max-width: 960px; margin: 0 auto; }
+
+    .hotkey-table {
+      margin-top: 36px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hotkey-row {
+      display: flex;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hotkey-row:last-child { border-bottom: none; }
+
+    .hotkey-keys {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      width: 200px;
+      flex-shrink: 0;
+    }
+
+    .hotkey-desc { font-size: 0.85rem; color: var(--muted); }
+
+    /* CTA */
+    .cta-wrap { text-align: center; padding: 80px 24px; border-top: 1px solid var(--border); }
+    .cta-wrap h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -1px; color: #fff; margin-bottom: 12px; }
+    .cta-wrap p  { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+    }
+    .footer-left  { font-size: 0.8rem; font-weight: 600; color: #242424; }
+    .footer-right { font-size: 0.75rem; color: #242424; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .page-header, .screenshot-section, .features-section, .hotkeys-section { padding: 48px 20px; }
+      .screenshot-inner { grid-template-columns: 1fr; gap: 32px; }
+      .feature-list { grid-template-columns: 1fr; }
+      footer { padding: 20px; flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">AIVerify</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="product.html" class="active">Product</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-primary">Download</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="section-label">Product</div>
+  <h1>Everything you need<br>to verify content</h1>
+  <p>AIVerify runs on your Windows PC and analyzes images, text, and video in seconds — giving you a confidence score backed by multiple detection methods.</p>
+</div>
+
+<section class="screenshot-section">
+  <div class="screenshot-inner">
+    <div class="screenshot-text">
+      <h2>Clear results, not just a number</h2>
+      <p>Every scan shows a confidence score alongside the specific signals that triggered it — whether that's AI-generated metadata, compression artifacts, or writing patterns.</p>
+      <p>You see exactly why the verdict was reached, not just what it is.</p>
+    </div>
+    <div class="screenshot-img">
+      <div class="placeholder">
+        <p>APP SCREENSHOT</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screenshot-section" style="background: var(--surface);">
+  <div class="screenshot-inner" style="direction: ltr;">
+    <div class="screenshot-img">
+      <div class="placeholder">
+        <p>APP SCREENSHOT</p>
+      </div>
+    </div>
+    <div class="screenshot-text">
+      <h2>Multiple detection methods</h2>
+      <p>AIVerify combines visual AI analysis, EXIF metadata inspection, and error-level analysis (ELA) into a single combined score.</p>
+      <p>Each method contributes independently so you can see which factor carried the most weight.</p>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="features-inner">
+    <div class="section-label">Capabilities</div>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <h3>Screen Capture</h3>
+        <p>Select any region of your screen with a crosshair tool and analyze it instantly.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <h3>File Drop</h3>
+        <p>Drag and drop any image file directly onto the app to analyze it.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <h3>URL Scan</h3>
+        <p>Paste an image URL and AIVerify downloads and analyzes it automatically.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <h3>Folder Batch Scan</h3>
+        <p>Scan an entire folder of images at once and get a summary of results.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <h3>Video Recording</h3>
+        <p>Record any screen region for 5 seconds and analyze multiple frames for AI content.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">06</div>
+        <h3>Scan History</h3>
+        <p>Every scan is saved locally so you can review past results at any time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hotkeys-section">
+  <div class="hotkeys-inner">
+    <div class="section-label">Keyboard Shortcuts</div>
+    <div class="hotkey-table">
+      <div class="hotkey-row">
+        <span class="hotkey-keys">Ctrl + Shift + A</span>
+        <span class="hotkey-desc">Capture a screen region and analyze as image</span>
+      </div>
+      <div class="hotkey-row">
+        <span class="hotkey-keys">Ctrl + Shift + V</span>
+        <span class="hotkey-desc">Record a screen region for 5 seconds and analyze as video</span>
+      </div>
+      <div class="hotkey-row">
+        <span class="hotkey-keys">Ctrl + Shift + T</span>
+        <span class="hotkey-desc">Open text input box to paste or type text</span>
+      </div>
+      <div class="hotkey-row">
+        <span class="hotkey-keys">Ctrl + Shift + X</span>
+        <span class="hotkey-desc">Analyze text currently copied to clipboard</span>
+      </div>
+    </div>
+    <p style="margin-top: 14px; font-size: 0.78rem; color: var(--muted); font-family: var(--mono);">All hotkeys can be customized in the app settings.</p>
+  </div>
+</section>
+
+<section class="cta-wrap">
+  <h2>Ready to try it?</h2>
+  <p>Download AIVerify for Windows. Free trial included.</p>
+  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-primary btn-lg">Download for Windows</a>
+</section>
+
+<footer>
+  <span class="footer-left">AIVerify</span>
+  <span class="footer-right">&copy; 2025 AIVerify. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
