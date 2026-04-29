@@ -3,192 +3,286 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIVerify — Detect AI-Generated Content</title>
-  <meta name="description" content="AIVerify detects AI-generated images, text, and video in seconds. Get a confidence score and detailed breakdown instantly.">
+  <title>AIVerify — AI Content Detection</title>
+  <meta name="description" content="Detect AI-generated images, text, and video instantly. AIVerify gives you a precise confidence score and full breakdown.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --accent:       #6C5CE7;
-      --accent-light: #8B7CF8;
-      --bg:           #0f0f0f;
-      --surface:      #161616;
-      --border:       #242424;
-      --text:         #e8e8e8;
-      --muted:        #777;
+      --accent:  #7B6CF6;
+      --bg:      #060606;
+      --surface: #0c0c0c;
+      --border:  #1a1a1a;
+      --text:    #f0f0f0;
+      --muted:   #525252;
+      --mono:    'SF Mono', ui-monospace, 'Cascadia Code', monospace;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Nav ── */
     nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 48px;
+      padding: 0 48px;
+      height: 56px;
       border-bottom: 1px solid var(--border);
+      background: rgba(6,6,6,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--accent-light);
-      letter-spacing: -0.3px;
-    }
-
-    .nav-dl {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      padding: 9px 22px;
-      border-radius: 8px;
       font-size: 0.9rem;
       font-weight: 600;
-      transition: background 0.15s;
-    }
-    .nav-dl:hover { background: var(--accent-light); }
-
-    /* ── Hero ── */
-    .hero {
-      text-align: center;
-      padding: 110px 20px 90px;
+      color: var(--text);
+      letter-spacing: -0.2px;
     }
 
-    .badge {
-      display: inline-block;
-      background: rgba(108,92,231,.12);
-      color: var(--accent-light);
-      border: 1px solid rgba(108,92,231,.25);
-      padding: 5px 16px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      margin-bottom: 28px;
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-version {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
       letter-spacing: 0.2px;
     }
 
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -1.5px;
-      margin-bottom: 22px;
-    }
-    .hero h1 span { color: var(--accent-light); }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 480px;
-      margin: 0 auto 44px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      padding: 7px 18px;
+      border-radius: 5px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: -0.1px;
+      transition: opacity 0.12s;
+      white-space: nowrap;
     }
 
-    .hero-cta {
-      display: inline-block;
+    .btn-primary {
       background: var(--accent);
       color: #fff;
-      text-decoration: none;
-      padding: 17px 40px;
-      border-radius: 10px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      transition: background 0.15s, transform 0.1s;
     }
-    .hero-cta:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .btn-primary:hover { opacity: 0.82; }
 
-    .hero-note {
-      margin-top: 14px;
-      font-size: 0.78rem;
-      color: #555;
+    .btn-lg {
+      padding: 10px 26px;
+      font-size: 0.88rem;
+      font-weight: 600;
     }
 
-    /* ── Features ── */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      max-width: 960px;
-      margin: 0 auto 100px;
-      padding: 0 24px;
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: 128px 48px 108px;
+      text-align: center;
+      overflow: hidden;
     }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 30px 26px;
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #1c1c1c 1px, transparent 1px);
+      background-size: 26px 26px;
+      -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, black 10%, transparent 100%);
+      mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, black 10%, transparent 100%);
+      pointer-events: none;
     }
 
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(108,92,231,.15);
-      display: flex;
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -2.5px;
+      color: #fff;
       margin-bottom: 18px;
     }
 
-    .card-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--accent-light);
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .hero-sub {
+      font-size: 0.975rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 400px;
+      margin: 0 auto 40px;
+      font-weight: 400;
     }
 
-    .card h3 {
-      font-size: 1rem;
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: #2e2e2e;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── Features ── */
+    .features-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 36px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .cell {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cell:nth-child(2n)   { border-right: none; }
+    .cell:nth-child(3),
+    .cell:nth-child(4)    { border-bottom: none; }
+
+    .cell-num {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 14px;
+    }
+
+    .cell h3 {
+      font-size: 0.92rem;
       font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.2px;
       margin-bottom: 8px;
     }
 
-    .card p {
-      font-size: 0.875rem;
+    .cell p {
+      font-size: 0.835rem;
       color: var(--muted);
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
-    /* ── Bottom CTA ── */
-    .bottom-cta {
+    /* ── CTA ── */
+    .cta-wrap {
       text-align: center;
-      padding: 90px 20px;
-      border-top: 1px solid var(--border);
+      padding: 100px 24px;
     }
 
-    .bottom-cta h2 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: -0.5px;
+    .cta-wrap h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #fff;
       margin-bottom: 12px;
     }
 
-    .bottom-cta p {
+    .cta-wrap p {
+      font-size: 0.88rem;
       color: var(--muted);
-      margin-bottom: 36px;
-      font-size: 0.95rem;
+      margin-bottom: 32px;
     }
 
     /* ── Footer ── */
     footer {
-      text-align: center;
-      padding: 28px;
-      border-top: 1px solid #181818;
-      font-size: 0.78rem;
-      color: #3a3a3a;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
     }
 
-    @media (max-width: 600px) {
-      nav { padding: 18px 20px; }
-      .nav-dl { display: none; }
+    .footer-left {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #242424;
+    }
+
+    .footer-right {
+      font-size: 0.75rem;
+      color: #242424;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      .nav-version { display: none; }
+      .hero { padding: 88px 20px 72px; }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .cell { border-right: none; }
+      .cell:nth-child(3) { border-bottom: 1px solid var(--border); }
+      .cell:nth-child(4) { border-bottom: none; }
+      footer { padding: 20px; flex-direction: column; gap: 6px; text-align: center; }
     }
   </style>
 </head>
@@ -196,60 +290,87 @@
 
 <nav>
   <div class="logo">AIVerify</div>
-  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="nav-dl">Download</a>
+  <div class="nav-right">
+    <span class="nav-version">v1.0.0</span>
+    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe"
+       class="btn btn-primary">Download</a>
+  </div>
 </nav>
 
 <section class="hero">
-  <div class="badge">Windows App &mdash; v1.0.0</div>
-  <h1>Know if it&rsquo;s <span>AI&#8209;generated</span><br>in seconds</h1>
-  <p class="hero-sub">Drop an image, paste text, or record your screen. AIVerify gives you a clear confidence score and breakdown instantly.</p>
-  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="hero-cta">Download for Windows</a>
-  <p class="hero-note">Windows 10 / 11 &nbsp;&middot;&nbsp; If Windows shows a warning, click &ldquo;More info&rdquo; &rarr; &ldquo;Run anyway&rdquo;</p>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      AI Content Detection &mdash; Windows
+    </div>
+    <h1>Know if it&rsquo;s<br>AI&#8209;generated</h1>
+    <p class="hero-sub">
+      Drop an image, paste text, or record your screen.
+      Get a precise confidence score and a full breakdown of what triggered it.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe"
+         class="btn btn-primary btn-lg">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download for Windows
+      </a>
+    </div>
+    <p class="hero-note">
+      Windows 10 / 11 &nbsp;&middot;&nbsp; Free &nbsp;&middot;&nbsp;
+      If prompted by Windows, click &ldquo;More info&rdquo; &rarr; &ldquo;Run anyway&rdquo;
+    </p>
+  </div>
 </section>
 
-<section class="features">
+<div class="features-wrap">
+  <div class="features-inner">
+    <div class="section-label">What it detects</div>
+    <div class="grid">
 
-  <div class="card">
-    <div class="card-icon">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <div class="cell">
+        <div class="cell-num">01</div>
+        <h3>Images</h3>
+        <p>Capture a screen region, drop a file, or submit a URL. Analyzes AI artifacts, EXIF metadata, and error-level anomalies across all major formats.</p>
+      </div>
+
+      <div class="cell">
+        <div class="cell-num">02</div>
+        <h3>Text</h3>
+        <p>Paste any text or analyze your clipboard. Detects AI writing patterns, vocabulary markers, and structural tells across any subject or genre.</p>
+      </div>
+
+      <div class="cell">
+        <div class="cell-num">03</div>
+        <h3>Video</h3>
+        <p>Select any screen region and record it. Multiple frames are sampled and cross-analyzed for signs of AI-generated or deepfake video content.</p>
+      </div>
+
+      <div class="cell">
+        <div class="cell-num">04</div>
+        <h3>Full Breakdown</h3>
+        <p>Every result includes the signals that fired, their individual weights, and an overall confidence score. Not just a verdict &mdash; an explanation.</p>
+      </div>
+
     </div>
-    <h3>Image Detection</h3>
-    <p>Capture a screen region, drag and drop a file, or paste an image URL. Detects AI artifacts, metadata, and error-level anomalies.</p>
   </div>
+</div>
 
-  <div class="card">
-    <div class="card-icon">
-      <svg viewBox="0 0 24 24"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
-    </div>
-    <h3>Text Detection</h3>
-    <p>Paste any text or analyze your clipboard. Catches AI writing patterns, vocabulary tells, and structural rhythms across any genre.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-icon">
-      <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-    </div>
-    <h3>Video Analysis</h3>
-    <p>Record any region of your screen and analyze multiple frames to detect AI-generated or deepfake video content.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-icon">
-      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    </div>
-    <h3>Detailed Breakdown</h3>
-    <p>See exactly what triggered the result — EXIF metadata, compression artifacts, AI vocabulary, and more — not just a score.</p>
-  </div>
-
-</section>
-
-<section class="bottom-cta">
-  <h2>Start detecting AI content</h2>
+<section class="cta-wrap">
+  <h2>Start detecting</h2>
   <p>Free to download. Runs entirely on your Windows PC.</p>
-  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="hero-cta">Download AIVerify</a>
+  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe"
+     class="btn btn-primary btn-lg">Download AIVerify</a>
 </section>
 
-<footer>&copy; 2025 AIVerify. All rights reserved.</footer>
+<footer>
+  <span class="footer-left">AIVerify</span>
+  <span class="footer-right">&copy; 2025 AIVerify. All rights reserved.</span>
+</footer>
 
 </body>
 </html>
