@@ -87,11 +87,28 @@
       padding: 36px 32px;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     .plan.featured {
       border-color: var(--accent);
       background: rgba(123,108,246,0.04);
+    }
+
+    .most-popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
     }
 
     .plan-badge {
@@ -103,7 +120,8 @@
       margin-bottom: 20px;
     }
 
-    .plan-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .plan-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .plan-subtitle { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; font-family: var(--mono); }
 
     .plan-price {
       font-size: 2.8rem;
@@ -131,19 +149,20 @@
       margin-bottom: 12px;
     }
 
-    .plan-features li .check {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      margin-top: 2px;
-      stroke: var(--accent);
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .plan-features li.active { color: var(--text); }
+    .plan-features li.inactive { color: #2e2e2e; }
+
+    .check {
+      width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px;
+      stroke: var(--accent); fill: none; stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
     }
 
-    .plan-features li.active { color: var(--text); }
+    .cross {
+      width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px;
+      stroke: #2e2e2e; fill: none; stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
 
     /* FAQ */
     .faq-section { border-top: 1px solid var(--border); padding: 60px 48px; }
@@ -161,13 +180,22 @@
       padding: 20px 48px;
     }
     .footer-left  { font-size: 0.8rem; font-weight: 600; color: #242424; }
-    .footer-right { font-size: 0.75rem; color: #242424; }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: #242424;
+    }
+    .footer-right a { color: #383838; text-decoration: none; }
+    .footer-right a:hover { color: var(--muted); }
 
     @media (max-width: 680px) {
       nav { padding: 0 20px; }
       .page-header, .pricing-section, .faq-section { padding-left: 20px; padding-right: 20px; }
       .pricing-inner { grid-template-columns: 1fr; }
-      footer { padding: 20px; flex-direction: column; gap: 6px; text-align: center; }
+      footer { padding: 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 6px; }
     }
   </style>
 </head>
@@ -179,7 +207,7 @@
     <a href="index.html">Home</a>
     <a href="product.html">Product</a>
     <a href="pricing.html" class="active">Pricing</a>
-    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-primary">Download</a>
+    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.1/AIVerify_Setup_1.0.1.exe" class="btn btn-primary">Download</a>
   </div>
 </nav>
 
@@ -195,13 +223,14 @@
     <div class="plan">
       <div class="plan-badge">Free</div>
       <div class="plan-name">Trial</div>
+      <div class="plan-subtitle">3-day free trial</div>
       <div class="plan-price">$0</div>
-      <p class="plan-desc">Get started and explore AIVerify with a limited number of scans.</p>
+      <p class="plan-desc">Try AIVerify free for 3 days with no credit card required.</p>
       <hr class="plan-divider">
       <ul class="plan-features">
         <li class="active">
           <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          Limited scans per day
+          10 scans per day
         </li>
         <li class="active">
           <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -215,13 +244,23 @@
           <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
           Scan history
         </li>
+        <li class="inactive">
+          <svg class="cross" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Folder batch scanning
+        </li>
+        <li class="inactive">
+          <svg class="cross" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Priority support
+        </li>
       </ul>
-      <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-outline btn-lg btn-full">Download Free</a>
+      <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.1/AIVerify_Setup_1.0.1.exe" class="btn btn-outline btn-lg btn-full">Download Free</a>
     </div>
 
     <div class="plan featured">
+      <span class="most-popular-badge">Most Popular</span>
       <div class="plan-badge">Pro</div>
       <div class="plan-name">Subscription</div>
+      <div class="plan-subtitle">&nbsp;</div>
       <div class="plan-price">$5 <span>/ month</span></div>
       <p class="plan-desc">Unlimited scans for individuals who need to verify content regularly.</p>
       <hr class="plan-divider">
@@ -251,7 +290,7 @@
           Priority support
         </li>
       </ul>
-      <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-primary btn-lg btn-full">Get Started</a>
+      <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.1/AIVerify_Setup_1.0.1.exe" class="btn btn-primary btn-lg btn-full">Get Started</a>
     </div>
 
   </div>
@@ -269,6 +308,16 @@
     <div class="faq-item">
       <div class="faq-q">Can I cancel at any time?</div>
       <div class="faq-a">Yes. Go to Profile &rarr; Cancel Subscription in the app. You'll keep access until the end of the billing period.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is my data stored or shared?</div>
+      <div class="faq-a">No. Scans are processed in real time and never stored on our servers. We only keep your account details and scan history (verdict and timestamp — not the actual content).</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How accurate is the detection?</div>
+      <div class="faq-a">AIVerify uses multiple detection layers including AI vision analysis, metadata inspection, and error level analysis. Accuracy varies by content type but is highest on images. Results are confidence scores, not absolute verdicts.</div>
     </div>
 
     <div class="faq-item">
@@ -290,7 +339,11 @@
 
 <footer>
   <span class="footer-left">AIVerify</span>
-  <span class="footer-right">&copy; 2025 AIVerify. All rights reserved.</span>
+  <div class="footer-right">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <span>&copy; 2025 AIVerify. All rights reserved.</span>
+  </div>
 </footer>
 
 </body>

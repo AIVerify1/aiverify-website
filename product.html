@@ -63,7 +63,6 @@
     .btn-primary:hover { opacity: 0.82; }
     .btn-lg { padding: 10px 26px; font-size: 0.88rem; font-weight: 600; }
 
-    /* Page header */
     .page-header {
       padding: 72px 48px 60px;
       max-width: 960px;
@@ -124,35 +123,119 @@
       margin-bottom: 12px;
     }
 
-    .screenshot-img {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+    /* App mockup */
+    .app-mockup {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
       overflow: hidden;
-      aspect-ratio: 4/3;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+
+    .mockup-titlebar {
+      background: #0e0e0e;
+      border-bottom: 1px solid #1c1c1c;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 6px;
+    }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-dot.r { background: #ff5f56; }
+    .mockup-dot.y { background: #ffbd2e; }
+    .mockup-dot.g { background: #27c93f; }
+    .mockup-title { margin-left: 8px; font-size: 0.72rem; color: #444; font-family: var(--mono); }
+
+    .mockup-body { padding: 18px 20px 20px; }
+
+    .mockup-verdict {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 5px;
+      padding: 6px 12px;
+      margin-bottom: 14px;
+    }
+    .mockup-verdict.ai { background: rgba(255,77,77,0.12); border: 1px solid rgba(255,77,77,0.25); }
+    .mockup-verdict.human { background: rgba(68,204,119,0.12); border: 1px solid rgba(68,204,119,0.25); }
+
+    .mockup-verdict-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .mockup-verdict.ai .mockup-verdict-dot { background: #ff4d4d; }
+    .mockup-verdict.human .mockup-verdict-dot { background: #44cc77; }
+
+    .mockup-verdict-text { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .mockup-verdict.ai .mockup-verdict-text { color: #ff4d4d; }
+    .mockup-verdict.human .mockup-verdict-text { color: #44cc77; }
+
+    .mockup-confidence { font-size: 0.7rem; color: #555; margin-left: 4px; }
+
+    .mockup-scores { margin-bottom: 14px; }
+
+    .mockup-score-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
-    .screenshot-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .screenshot-img .placeholder {
-      text-align: center;
-      padding: 40px;
-    }
-
-    .screenshot-img .placeholder p {
+    .mockup-score-label {
+      font-size: 0.7rem;
+      color: #555;
+      width: 105px;
+      flex-shrink: 0;
       font-family: var(--mono);
-      font-size: 0.72rem;
-      color: #2a2a2a;
-      letter-spacing: 0.5px;
     }
+
+    .mockup-bar-track {
+      flex: 1;
+      height: 4px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .mockup-bar-fill { height: 100%; border-radius: 2px; }
+    .mockup-bar-fill.high { background: #ff4d4d; }
+    .mockup-bar-fill.mid  { background: #ff9900; }
+    .mockup-bar-fill.low  { background: #44cc77; }
+    .mockup-bar-fill.accent { background: var(--accent); }
+
+    .mockup-score-val {
+      font-size: 0.7rem;
+      color: #aaa;
+      width: 26px;
+      text-align: right;
+      font-family: var(--mono);
+      flex-shrink: 0;
+    }
+
+    .mockup-divider { border: none; border-top: 1px solid #1c1c1c; margin: 12px 0; }
+
+    .mockup-issues-label {
+      font-size: 0.65rem;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-family: var(--mono);
+      margin-bottom: 8px;
+    }
+
+    .mockup-issue {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 0.72rem;
+      color: #666;
+      line-height: 1.45;
+    }
+
+    .mockup-issue-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 4px; opacity: 0.7;
+    }
+    .mockup-issue-dot.red { background: #ff4d4d; }
+    .mockup-issue-dot.orange { background: #ff9900; }
 
     /* Features list */
     .features-section {
@@ -225,7 +308,8 @@
     /* CTA */
     .cta-wrap { text-align: center; padding: 80px 24px; border-top: 1px solid var(--border); }
     .cta-wrap h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -1px; color: #fff; margin-bottom: 12px; }
-    .cta-wrap p  { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
+    .cta-wrap p  { font-size: 0.88rem; color: var(--muted); margin-bottom: 28px; }
+    .cta-note { margin-top: 12px; font-size: 0.78rem; color: #383838; font-family: var(--mono); }
 
     footer {
       border-top: 1px solid var(--border);
@@ -233,14 +317,23 @@
       padding: 20px 48px;
     }
     .footer-left  { font-size: 0.8rem; font-weight: 600; color: #242424; }
-    .footer-right { font-size: 0.75rem; color: #242424; }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: #242424;
+    }
+    .footer-right a { color: #383838; text-decoration: none; }
+    .footer-right a:hover { color: var(--muted); }
 
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
       .page-header, .screenshot-section, .features-section, .hotkeys-section { padding: 48px 20px; }
       .screenshot-inner { grid-template-columns: 1fr; gap: 32px; }
       .feature-list { grid-template-columns: 1fr; }
-      footer { padding: 20px; flex-direction: column; gap: 6px; text-align: center; }
+      footer { padding: 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 6px; }
     }
   </style>
 </head>
@@ -252,7 +345,7 @@
     <a href="index.html">Home</a>
     <a href="product.html" class="active">Product</a>
     <a href="pricing.html">Pricing</a>
-    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-primary">Download</a>
+    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.1/AIVerify_Setup_1.0.1.exe" class="btn btn-primary">Download</a>
   </div>
 </nav>
 
@@ -262,6 +355,7 @@
   <p>AIVerify runs on your Windows PC and analyzes images, text, and video in seconds — giving you a confidence score backed by multiple detection methods.</p>
 </div>
 
+<!-- Section 1: Clear results -->
 <section class="screenshot-section">
   <div class="screenshot-inner">
     <div class="screenshot-text">
@@ -269,19 +363,112 @@
       <p>Every scan shows a confidence score alongside the specific signals that triggered it — whether that's AI-generated metadata, compression artifacts, or writing patterns.</p>
       <p>You see exactly why the verdict was reached, not just what it is.</p>
     </div>
-    <div class="screenshot-img">
-      <div class="placeholder">
-        <p>APP SCREENSHOT</p>
+    <div class="app-mockup">
+      <div class="mockup-titlebar">
+        <span class="mockup-dot r"></span>
+        <span class="mockup-dot y"></span>
+        <span class="mockup-dot g"></span>
+        <span class="mockup-title">AIVerify — Result</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-verdict ai">
+          <span class="mockup-verdict-dot"></span>
+          <span class="mockup-verdict-text">AI Generated</span>
+          <span class="mockup-confidence">&nbsp;· Confidence: High</span>
+        </div>
+
+        <div class="mockup-scores">
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Vision Analysis</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill high" style="width:91%"></div></div>
+            <span class="mockup-score-val">91</span>
+          </div>
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Metadata (EXIF)</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill high" style="width:84%"></div></div>
+            <span class="mockup-score-val">84</span>
+          </div>
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Error Level (ELA)</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill mid" style="width:67%"></div></div>
+            <span class="mockup-score-val">67</span>
+          </div>
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Combined Score</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill high" style="width:88%"></div></div>
+            <span class="mockup-score-val">88</span>
+          </div>
+        </div>
+
+        <hr class="mockup-divider">
+        <div class="mockup-issues-label">Issues Detected</div>
+        <div class="mockup-issue">
+          <span class="mockup-issue-dot red"></span>
+          No camera or lens metadata — likely software-generated
+        </div>
+        <div class="mockup-issue">
+          <span class="mockup-issue-dot red"></span>
+          Uniform noise pattern consistent with AI diffusion models
+        </div>
+        <div class="mockup-issue">
+          <span class="mockup-issue-dot orange"></span>
+          ELA shows flat compression typical of synthetic images
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Section 2: Multiple detection methods -->
 <section class="screenshot-section" style="background: var(--surface);">
-  <div class="screenshot-inner" style="direction: ltr;">
-    <div class="screenshot-img">
-      <div class="placeholder">
-        <p>APP SCREENSHOT</p>
+  <div class="screenshot-inner">
+    <div class="app-mockup">
+      <div class="mockup-titlebar">
+        <span class="mockup-dot r"></span>
+        <span class="mockup-dot y"></span>
+        <span class="mockup-dot g"></span>
+        <span class="mockup-title">AIVerify — Result</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-verdict human">
+          <span class="mockup-verdict-dot"></span>
+          <span class="mockup-verdict-text">Likely Authentic</span>
+          <span class="mockup-confidence">&nbsp;· Confidence: Medium</span>
+        </div>
+
+        <div class="mockup-scores">
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Vision Analysis</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill low" style="width:22%"></div></div>
+            <span class="mockup-score-val">22</span>
+          </div>
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Metadata (EXIF)</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill low" style="width:14%"></div></div>
+            <span class="mockup-score-val">14</span>
+          </div>
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Error Level (ELA)</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill mid" style="width:41%"></div></div>
+            <span class="mockup-score-val">41</span>
+          </div>
+          <div class="mockup-score-row">
+            <span class="mockup-score-label">Combined Score</span>
+            <div class="mockup-bar-track"><div class="mockup-bar-fill low" style="width:26%"></div></div>
+            <span class="mockup-score-val">26</span>
+          </div>
+        </div>
+
+        <hr class="mockup-divider">
+        <div class="mockup-issues-label">Issues Detected</div>
+        <div class="mockup-issue">
+          <span class="mockup-issue-dot orange"></span>
+          Minor ELA inconsistency in lower-right region
+        </div>
+        <div class="mockup-issue">
+          <span class="mockup-issue-dot orange"></span>
+          Slight sharpness variance — possible crop or resize
+        </div>
       </div>
     </div>
     <div class="screenshot-text">
@@ -358,12 +545,17 @@
 <section class="cta-wrap">
   <h2>Ready to try it?</h2>
   <p>Download AIVerify for Windows. Free trial included.</p>
-  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.0/AIVerify_Setup_1.0.0.exe" class="btn btn-primary btn-lg">Download for Windows</a>
+  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.1/AIVerify_Setup_1.0.1.exe" class="btn btn-primary btn-lg">Download for Windows</a>
+  <p class="cta-note">No credit card required</p>
 </section>
 
 <footer>
   <span class="footer-left">AIVerify</span>
-  <span class="footer-right">&copy; 2025 AIVerify. All rights reserved.</span>
+  <div class="footer-right">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <span>&copy; 2025 AIVerify. All rights reserved.</span>
+  </div>
 </footer>
 
 </body>
