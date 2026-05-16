@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIVerify — Terms of Service</title>
+  <meta name="description" content="Terms of Service for AIVerify — AI content detection for Windows.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent:  #7B6CF6;
+      --bg:      #060606;
+      --surface: #0c0c0c;
+      --border:  #1a1a1a;
+      --text:    #f0f0f0;
+      --muted:   #525252;
+      --mono:    'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6,6,6,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo img { height: 24px; width: auto; }
+    .logo span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.12s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none; padding: 7px 18px; border-radius: 5px;
+      font-size: 0.82rem; font-weight: 500; transition: opacity 0.12s; white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.82; }
+
+    .page-header {
+      padding: 72px 48px 52px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .page-header .meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 48px 96px;
+    }
+
+    .content section {
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
+    }
+
+    .content section:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: -0.2px;
+    }
+
+    .content p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .content p:last-child { margin-bottom: 0; }
+
+    .content ul {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    .content ul li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .content ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .highlight {
+      background: rgba(123,108,246,0.08);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 0.85rem;
+      color: #aaa;
+      line-height: 1.75;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+    }
+
+    .footer-left { font-size: 0.8rem; font-weight: 600; color: #242424; }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: #242424;
+    }
+
+    .footer-right a { color: #383838; text-decoration: none; }
+    .footer-right a:hover { color: var(--muted); }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      .page-header, .content { padding-left: 20px; padding-right: 20px; }
+      footer { padding: 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><img src="logo.png" alt="AIVerify"><span>AIVerify</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="product.html">Product</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.1/AIVerify_Setup_1.0.1.exe" class="btn btn-primary">Download</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="section-label">Legal</div>
+  <h1>Terms of Service</h1>
+  <p class="meta">Last updated: May 2025</p>
+</div>
+
+<div class="content">
+
+  <section>
+    <h2>1. Acceptance of Terms</h2>
+    <p>By downloading, installing, or using AIVerify ("the app", "the service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the app.</p>
+    <p>You must be at least 13 years old to create an account and use AIVerify.</p>
+  </section>
+
+  <section>
+    <h2>2. The Service</h2>
+    <p>AIVerify is a Windows desktop application that analyzes images, text, and video to detect AI-generated, manipulated, or fake content. It returns a confidence score and breakdown of the signals detected.</p>
+    <p>The app requires an active internet connection to perform scans. Analysis is processed on our servers. We make no guarantees of continuous availability or uptime, and the service is provided as-is.</p>
+  </section>
+
+  <section>
+    <h2>3. Account Registration</h2>
+    <p>You must create an account to use AIVerify. You are responsible for keeping your login credentials secure. You agree not to share your account with others or allow unauthorized access.</p>
+    <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
+  </section>
+
+  <section>
+    <h2>4. Free Trial and Subscription</h2>
+    <p>New accounts receive a 3-day free trial with up to 10 scans per day. The trial begins at the moment your account is created and cannot be reset or extended.</p>
+    <p>After the trial ends, continued use requires a Pro subscription at $5/month. Subscribing gives you unlimited scans and access to all features including folder batch scanning.</p>
+  </section>
+
+  <section>
+    <h2>5. Payments and Cancellation</h2>
+    <p>Payments are processed securely through Stripe. By subscribing, you authorize recurring monthly charges to your payment method.</p>
+    <p>You may cancel your subscription at any time from within the app (Profile &rarr; Cancel Subscription). You will retain access until the end of the current billing period — no partial refunds are issued for unused time.</p>
+    <p>We reserve the right to change pricing with reasonable advance notice. Price changes will not affect your current billing period.</p>
+  </section>
+
+  <section>
+    <h2>6. Acceptable Use</h2>
+    <p>You agree to use AIVerify only for lawful purposes. You must not:</p>
+    <ul>
+      <li>Use the app to violate any applicable laws or regulations</li>
+      <li>Attempt to reverse engineer, decompile, or disassemble the app</li>
+      <li>Resell, sublicense, or redistribute the app or its output commercially without permission</li>
+      <li>Attempt to circumvent scan limits, account restrictions, or authentication</li>
+      <li>Use automated scripts or bots to interact with the service</li>
+      <li>Abuse the service in a way that degrades performance for other users</li>
+    </ul>
+    <p>Accounts found to be in violation may be suspended or permanently terminated without notice or refund.</p>
+  </section>
+
+  <section>
+    <h2>7. Accuracy Disclaimer</h2>
+    <div class="highlight">
+      AIVerify provides detection results as confidence scores — not definitive verdicts. The app uses multiple detection methods including AI vision analysis, metadata inspection, and error level analysis. No detection method is 100% accurate.
+    </div>
+    <p>Results should not be used as sole evidence in legal, professional, journalistic, or regulatory contexts without independent verification. We are not liable for decisions made based on the app's output.</p>
+  </section>
+
+  <section>
+    <h2>8. Intellectual Property</h2>
+    <p>AIVerify, including its software, design, and underlying technology, is owned by AIVerify and protected by applicable intellectual property laws. These terms do not grant you any ownership rights.</p>
+    <p>You retain ownership of any content you submit for analysis. By submitting content, you grant us a limited right to process it for the purpose of providing the service. We do not store your scanned content after analysis is complete.</p>
+  </section>
+
+  <section>
+    <h2>9. Termination</h2>
+    <p>You may stop using AIVerify and delete your account at any time. We reserve the right to suspend or terminate your access at our discretion if you violate these terms or abuse the service.</p>
+    <p>Upon termination, your right to use the app ends immediately. Subscription fees already charged are non-refundable except where required by law.</p>
+  </section>
+
+  <section>
+    <h2>10. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, AIVerify and its creators are not liable for any indirect, incidental, special, or consequential damages arising from your use of or inability to use the service — including but not limited to data loss, business interruption, or decisions made based on scan results.</p>
+    <p>Our total liability to you for any claim arising from these terms or your use of the service shall not exceed the amount you paid us in the 30 days preceding the claim.</p>
+  </section>
+
+  <section>
+    <h2>11. Changes to Terms</h2>
+    <p>We may update these Terms of Service from time to time. When we do, we'll update the date at the top of this page. Continued use of AIVerify after changes are posted constitutes your acceptance of the revised terms.</p>
+    <p>For significant changes, we will make reasonable efforts to notify you through the app or by email.</p>
+  </section>
+
+  <section>
+    <h2>12. Contact Us</h2>
+    <p>If you have questions about these terms, please contact us at <a href="mailto:support@useaiverify.app">support@useaiverify.app</a>.</p>
+  </section>
+
+</div>
+
+<footer>
+  <span class="footer-left">AIVerify</span>
+  <div class="footer-right">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <span>&copy; 2025 AIVerify. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>
