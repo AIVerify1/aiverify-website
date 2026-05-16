@@ -364,114 +364,14 @@
       <p>Every scan shows a confidence score alongside the specific signals that triggered it â€” whether that's AI-generated metadata, compression artifacts, or writing patterns.</p>
       <p>You see exactly why the verdict was reached, not just what it is.</p>
     </div>
-    <div class="app-mockup">
-      <div class="mockup-titlebar">
-        <span class="mockup-dot r"></span>
-        <span class="mockup-dot y"></span>
-        <span class="mockup-dot g"></span>
-        <span class="mockup-title">AIVerify â€” Result</span>
-      </div>
-      <div class="mockup-body">
-        <div class="mockup-verdict ai">
-          <span class="mockup-verdict-dot"></span>
-          <span class="mockup-verdict-text">AI Generated</span>
-          <span class="mockup-confidence">&nbsp;Â· Confidence: High</span>
-        </div>
-
-        <div class="mockup-scores">
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Vision Analysis</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill high" style="width:91%"></div></div>
-            <span class="mockup-score-val">91</span>
-          </div>
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Metadata (EXIF)</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill high" style="width:84%"></div></div>
-            <span class="mockup-score-val">84</span>
-          </div>
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Error Level (ELA)</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill mid" style="width:67%"></div></div>
-            <span class="mockup-score-val">67</span>
-          </div>
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Combined Score</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill high" style="width:88%"></div></div>
-            <span class="mockup-score-val">88</span>
-          </div>
-        </div>
-
-        <hr class="mockup-divider">
-        <div class="mockup-issues-label">Issues Detected</div>
-        <div class="mockup-issue">
-          <span class="mockup-issue-dot red"></span>
-          No camera or lens metadata â€” likely software-generated
-        </div>
-        <div class="mockup-issue">
-          <span class="mockup-issue-dot red"></span>
-          Uniform noise pattern consistent with AI diffusion models
-        </div>
-        <div class="mockup-issue">
-          <span class="mockup-issue-dot orange"></span>
-          ELA shows flat compression typical of synthetic images
-        </div>
-      </div>
-    </div>
+    <img src=”screenshot-ai.png” alt=”AIVerify result showing AI Generated verdict” style=”width:100%;border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,0.5);”>
   </div>
 </section>
 
 <!-- Section 2: Multiple detection methods -->
 <section class="screenshot-section" style="background: var(--surface);">
   <div class="screenshot-inner">
-    <div class="app-mockup">
-      <div class="mockup-titlebar">
-        <span class="mockup-dot r"></span>
-        <span class="mockup-dot y"></span>
-        <span class="mockup-dot g"></span>
-        <span class="mockup-title">AIVerify â€” Result</span>
-      </div>
-      <div class="mockup-body">
-        <div class="mockup-verdict human">
-          <span class="mockup-verdict-dot"></span>
-          <span class="mockup-verdict-text">Likely Authentic</span>
-          <span class="mockup-confidence">&nbsp;Â· Confidence: Medium</span>
-        </div>
-
-        <div class="mockup-scores">
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Vision Analysis</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill low" style="width:22%"></div></div>
-            <span class="mockup-score-val">22</span>
-          </div>
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Metadata (EXIF)</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill low" style="width:14%"></div></div>
-            <span class="mockup-score-val">14</span>
-          </div>
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Error Level (ELA)</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill mid" style="width:41%"></div></div>
-            <span class="mockup-score-val">41</span>
-          </div>
-          <div class="mockup-score-row">
-            <span class="mockup-score-label">Combined Score</span>
-            <div class="mockup-bar-track"><div class="mockup-bar-fill low" style="width:26%"></div></div>
-            <span class="mockup-score-val">26</span>
-          </div>
-        </div>
-
-        <hr class="mockup-divider">
-        <div class="mockup-issues-label">Issues Detected</div>
-        <div class="mockup-issue">
-          <span class="mockup-issue-dot orange"></span>
-          Minor ELA inconsistency in lower-right region
-        </div>
-        <div class="mockup-issue">
-          <span class="mockup-issue-dot orange"></span>
-          Slight sharpness variance â€” possible crop or resize
-        </div>
-      </div>
-    </div>
+    <img src=”screenshot-real.png” alt=”AIVerify result showing Likely Real verdict” style=”width:100%;border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,0.5);”>
     <div class="screenshot-text">
       <h2>Multiple detection methods</h2>
       <p>AIVerify combines visual AI analysis, EXIF metadata inspection, and error-level analysis (ELA) into a single combined score.</p>
