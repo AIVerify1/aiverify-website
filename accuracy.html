@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIVerify &mdash; Accuracy &amp; Methodology</title>
+  <meta name="description" content="See exactly how accurate AIVerify is. We publish our false positive rate because you deserve to know what you're working with.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent:  #7B6CF6;
+      --bg:      #060606;
+      --surface: #0c0c0c;
+      --border:  #1a1a1a;
+      --text:    #f0f0f0;
+      --muted:   #525252;
+      --mono:    'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6,6,6,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo img { height: 24px; width: auto; }
+    .logo span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.12s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a.btn-primary { color: #fff; }
+    .nav-links a.btn-primary:hover { color: #fff; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none; padding: 7px 18px; border-radius: 5px;
+      font-size: 0.82rem; font-weight: 500; transition: opacity 0.12s; white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.82; }
+    .btn-lg { padding: 10px 26px; font-size: 0.88rem; font-weight: 600; }
+
+    /* Page hero */
+    .page-header {
+      padding: 80px 48px 64px;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* Sections */
+    .section {
+      border-top: 1px solid var(--border);
+      padding: 64px 48px;
+    }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    /* Metric cards — 2x2 grid */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .metric-card {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .metric-card:nth-child(2n)   { border-right: none; }
+    .metric-card:nth-child(3),
+    .metric-card:nth-child(4)    { border-bottom: none; }
+
+    .metric-num {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .metric-label {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .metric-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .metric-note {
+      font-size: 0.78rem;
+      color: #383838;
+      line-height: 1.7;
+    }
+
+    /* Method cards — 3 column */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .method-card {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .method-card:last-child { border-right: none; }
+
+    .method-card h3 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .method-card p {
+      font-size: 0.835rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .method-weight {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      background: rgba(123,108,246,0.1);
+      border: 1px solid rgba(123,108,246,0.2);
+      border-radius: 3px;
+      padding: 2px 8px;
+      margin-bottom: 12px;
+    }
+
+    /* Limitations section */
+    .section.limitations {
+      background: #0b0b0b;
+    }
+
+    .limitations-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .limitations-list li {
+      display: flex;
+      gap: 14px;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 20px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .limit-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #333;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    /* CTA */
+    .cta-wrap {
+      text-align: center;
+      padding: 100px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-wrap h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .cta-wrap p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+    }
+
+    .footer-left { font-size: 0.8rem; font-weight: 600; color: #242424; }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: #242424;
+    }
+    .footer-right a { color: #383838; text-decoration: none; }
+    .footer-right a:hover { color: var(--muted); }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .page-header { padding: 60px 20px 48px; }
+      .section { padding: 48px 20px; }
+      .metric-grid { grid-template-columns: 1fr; }
+      .metric-card { border-right: none; }
+      .metric-card:nth-child(3) { border-bottom: 1px solid var(--border); }
+      .method-grid { grid-template-columns: 1fr; }
+      .method-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .method-card:last-child { border-bottom: none; }
+      footer { padding: 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><img src="logo.png" alt="AIVerify"><span>AIVerify</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="product.html">Product</a>
+    <a href="accuracy.html" class="active">Accuracy</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.5/AIVerify_Setup_1.0.5.exe" class="btn btn-primary">Download</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="section-label">Accuracy &amp; Methodology</div>
+  <h1>We publish our limits.<br>No other tool does.</h1>
+  <p>Most AI detectors hide their accuracy numbers. We think that says everything about how much they trust their own product. Here&rsquo;s ours.</p>
+</div>
+
+<!-- Section 1: Benchmark Results -->
+<div class="section">
+  <div class="section-inner">
+    <h2>Benchmark Results</h2>
+    <p class="section-sub">Tested on a dataset of known AI-generated images and verified real photographs.</p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-num">[X]%</div>
+        <div class="metric-label">AI Images Caught</div>
+        <div class="metric-desc">Out of 200 known AI-generated images</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">[X]%</div>
+        <div class="metric-label">False Positive Rate</div>
+        <div class="metric-desc">Real photos incorrectly flagged as AI</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">[X]%</div>
+        <div class="metric-label">Modern Models</div>
+        <div class="metric-desc">Midjourney v6, DALL-E 3, Flux &mdash; hardest cases</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">[X]%</div>
+        <div class="metric-label">Text Detection</div>
+        <div class="metric-desc">AI-written content correctly identified</div>
+      </div>
+    </div>
+
+    <p class="metric-note">These numbers will change as AI models improve. We update this page when we run new tests. Last updated: [date]</p>
+    <p class="metric-note" style="margin-top:6px;">Tested against: Midjourney v6, DALL-E 3, Stable Diffusion XL, Flux, real camera photographs from various devices</p>
+  </div>
+</div>
+
+<!-- Section 2: How Detection Works -->
+<div class="section">
+  <div class="section-inner">
+    <h2>How We Reach a Verdict</h2>
+    <p class="section-sub">Three independent signals are combined into a single weighted confidence score.</p>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-weight">55% weight</div>
+        <h3>Visual Analysis</h3>
+        <p>Claude AI examines the image for generation artifacts, unnatural patterns, diffusion model signatures, and logical inconsistencies. Contributes 55% of the combined score.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-weight">25% weight</div>
+        <h3>Metadata (EXIF)</h3>
+        <p>Checks for missing camera data, suspicious software markers, and date inconsistencies. Abstains entirely if no metadata is present &mdash; no penalty for clean images. Contributes 25% of the combined score.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-weight">20% weight</div>
+        <h3>Error Level Analysis</h3>
+        <p>Re-compresses the image and measures where pixels changed. Edited or synthetically generated regions show abnormal error patterns. Contributes 20% of the combined score.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 3: Honest Limitations -->
+<div class="section limitations">
+  <div class="section-inner">
+    <h2>What AIVerify Gets Wrong</h2>
+    <p class="section-sub">We&rsquo;d rather you know this upfront than find out after relying on a result.</p>
+
+    <ul class="limitations-list">
+      <li>
+        <span class="limit-bullet"></span>
+        <span><strong style="color:var(--text);">New model images are harder to catch.</strong> Every new generation of AI image models produces cleaner outputs that defeat detectors trained on older data. We improve continuously but we will never claim 100% accuracy.</span>
+      </li>
+      <li>
+        <span class="limit-bullet"></span>
+        <span><strong style="color:var(--text);">Heavy JPEG compression can affect ELA results.</strong> Images that have been saved and re-saved multiple times may show false positives on the ELA signal.</span>
+      </li>
+      <li>
+        <span class="limit-bullet"></span>
+        <span><strong style="color:var(--text);">PNG files have no EXIF data.</strong> This is normal &mdash; our metadata checker abstains rather than penalizing clean PNG files.</span>
+      </li>
+      <li>
+        <span class="limit-bullet"></span>
+        <span><strong style="color:var(--text);">Screenshots of AI images may score differently than the original file</strong> due to additional compression introduced by the screenshot.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Section 4: CTA -->
+<section class="cta-wrap">
+  <h2>Try it yourself</h2>
+  <p>Free trial included. No credit card required.</p>
+  <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.5/AIVerify_Setup_1.0.5.exe" class="btn btn-primary btn-lg">Download for Windows</a>
+</section>
+
+<footer>
+  <span class="footer-left">AIVerify</span>
+  <div class="footer-right">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <span>&copy; 2026 AIVerify. All rights reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>
