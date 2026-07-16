@@ -1,31 +1,38 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIVerify &mdash; AI Content Detection</title>
-  <meta name="description" content="Instantly detect AI-generated, manipulated, or fake images, text, and video &mdash; directly from your screen.">
+  <title>AIVerify &middot; AI Content Detection</title>
+  <meta name="description" content="Instantly detect AI-generated, manipulated, or fake images, text, and video, straight from your screen.">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --accent:  #7B6CF6;
-      --bg:      #060606;
-      --surface: #0c0c0c;
-      --border:  #1a1a1a;
-      --text:    #f0f0f0;
-      --muted:   #525252;
-      --mono:    'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+      --accent:        #d9973f;
+      --accent-dim:    rgba(217,151,63,0.12);
+      --accent-border: rgba(217,151,63,0.3);
+      --flag:          #e2593f;
+      --clear:         #5fae6f;
+      --bg:      #0b0c0a;
+      --surface: #111310;
+      --border:  #202520;
+      --text:    #f1efe9;
+      --muted:   #9aa199;
+      --faint:   #52564f;
+      --font:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --display: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
+      --mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font);
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
@@ -42,7 +49,7 @@
       padding: 0 48px;
       height: 56px;
       border-bottom: 1px solid var(--border);
-      background: rgba(6,6,6,0.88);
+      background: rgba(11,12,10,0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -50,6 +57,11 @@
     .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
     .logo img { height: 24px; width: auto; }
     .logo span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+
+    .nav-toggle { display: none; }
+    .nav-burger { display: none; }
+
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
 
     .nav-links {
       display: flex;
@@ -64,8 +76,6 @@
       transition: color 0.12s;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
-    .nav-links a.btn-primary { color: #fff; }
-    .nav-links a.btn-primary:hover { color: #fff; }
 
     .btn {
       display: inline-flex;
@@ -73,15 +83,15 @@
       gap: 7px;
       text-decoration: none;
       padding: 7px 18px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-size: 0.82rem;
-      font-weight: 500;
+      font-weight: 600;
       transition: opacity 0.12s;
       white-space: nowrap;
     }
-    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
     .btn-primary:hover { opacity: 0.82; }
-    .btn-lg { padding: 10px 26px; font-size: 0.88rem; font-weight: 600; }
+    .btn-lg { padding: 10px 26px; font-size: 0.88rem; }
 
     .hero {
       position: relative;
@@ -90,36 +100,41 @@
       overflow: hidden;
     }
 
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, #1c1c1c 1px, transparent 1px);
-      background-size: 26px 26px;
-      -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, black 10%, transparent 100%);
-      mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, black 10%, transparent 100%);
-      pointer-events: none;
-    }
-
     .hero-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
 
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .hero-inner > * { animation: rise-in 0.6s ease both; }
+    .hero-inner > *:nth-child(1) { animation-delay: 0s; }
+    .hero-inner > *:nth-child(2) { animation-delay: .05s; }
+    .hero-inner > *:nth-child(3) { animation-delay: .1s; }
+    .hero-inner > *:nth-child(4) { animation-delay: .15s; }
+    .hero-inner > *:nth-child(5) { animation-delay: .2s; }
+    .hero-inner > *:nth-child(6) { animation-delay: .25s; }
+    .hero-inner > *:nth-child(7) { animation-delay: .3s; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-inner > * { animation: none; }
+    }
+
     .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       font-family: var(--mono);
       font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.8px;
+      color: var(--accent);
+      letter-spacing: 0.6px;
       text-transform: uppercase;
       margin-bottom: 28px;
     }
-    .hero-eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .hero-eyebrow::before { content: '['; margin-right: 7px; opacity: .55; }
+    .hero-eyebrow::after  { content: ']'; margin-left: 7px; opacity: .55; }
 
     h1 {
-      font-size: clamp(2.6rem, 6vw, 4rem);
-      font-weight: 800;
-      line-height: 1.06;
-      letter-spacing: -2.5px;
+      font-family: var(--display);
+      font-size: clamp(2.6rem, 5.6vw, 3.7rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.5px;
       color: #fff;
       margin-bottom: 18px;
     }
@@ -141,7 +156,7 @@
 
     .hero-trial-note {
       font-size: 0.78rem;
-      color: #383838;
+      color: var(--faint);
       font-family: var(--mono);
     }
 
@@ -149,7 +164,8 @@
       margin-top: 14px;
       font-family: var(--mono);
       font-size: 0.68rem;
-      color: #2a2a2a;
+      color: var(--faint);
+      opacity: .7;
     }
 
     /* Scan counter */
@@ -168,7 +184,7 @@
     .scan-counter strong { color: var(--text); font-weight: 600; }
     .scan-counter .pulse {
       width: 6px; height: 6px; border-radius: 50%;
-      background: #44cc77;
+      background: var(--clear);
       flex-shrink: 0;
       animation: pulse 2s ease-in-out infinite;
     }
@@ -176,10 +192,35 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      .scan-counter .pulse { animation: none; }
+    }
+
+    /* Bracket frame: signature corner marks */
+    .bracket-frame { position: relative; }
+    .bracket-frame::before,
+    .bracket-frame::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .bracket-frame::before {
+      top: -10px; left: -10px;
+      border-top: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+    }
+    .bracket-frame::after {
+      bottom: -10px; right: -10px;
+      border-bottom: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+    }
 
     /* App mockup */
     .app-mockup-wrap {
-      margin-top: 64px;
+      margin-top: 72px;
       position: relative;
       z-index: 1;
       max-width: 460px;
@@ -188,17 +229,17 @@
     }
 
     .app-mockup {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 10px;
+      background: #131512;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px #1a1a1a;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
       text-align: left;
     }
 
     .mockup-titlebar {
-      background: #0e0e0e;
-      border-bottom: 1px solid #1c1c1c;
+      background: #0e0f0d;
+      border-bottom: 1px solid var(--border);
       padding: 10px 16px;
       display: flex;
       align-items: center;
@@ -208,7 +249,7 @@
     .mockup-dot.r { background: #ff5f56; }
     .mockup-dot.y { background: #ffbd2e; }
     .mockup-dot.g { background: #27c93f; }
-    .mockup-title { margin-left: 8px; font-size: 0.75rem; color: #444; font-family: var(--mono); }
+    .mockup-title { margin-left: 8px; font-size: 0.75rem; color: var(--faint); font-family: var(--mono); }
 
     .mockup-body { padding: 20px 22px 22px; }
 
@@ -216,15 +257,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255,77,77,0.12);
-      border: 1px solid rgba(255,77,77,0.25);
-      border-radius: 5px;
+      background: rgba(226,89,63,0.12);
+      border: 1px solid rgba(226,89,63,0.28);
+      border-radius: 4px;
       padding: 6px 12px;
       margin-bottom: 16px;
     }
-    .mockup-verdict-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff4d4d; flex-shrink: 0; }
-    .mockup-verdict-text { font-size: 0.78rem; font-weight: 700; color: #ff4d4d; text-transform: uppercase; letter-spacing: 0.5px; }
-    .mockup-confidence { font-size: 0.72rem; color: #555; margin-left: auto; }
+    .mockup-verdict-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--flag); flex-shrink: 0; }
+    .mockup-verdict-text { font-size: 0.78rem; font-weight: 700; color: var(--flag); text-transform: uppercase; letter-spacing: 0.5px; }
+    .mockup-confidence { font-size: 0.72rem; color: var(--faint); margin-left: auto; }
 
     .mockup-scores { margin-bottom: 16px; }
 
@@ -237,7 +278,7 @@
 
     .mockup-score-label {
       font-size: 0.72rem;
-      color: #555;
+      color: var(--faint);
       width: 110px;
       flex-shrink: 0;
       font-family: var(--mono);
@@ -246,35 +287,30 @@
     .mockup-bar-track {
       flex: 1;
       height: 4px;
-      background: #1a1a1a;
+      background: var(--border);
       border-radius: 2px;
       overflow: hidden;
     }
 
-    .mockup-bar-fill {
-      height: 100%;
-      border-radius: 2px;
-      background: var(--accent);
-    }
-
-    .mockup-bar-fill.high { background: #ff4d4d; }
-    .mockup-bar-fill.mid  { background: #ff9900; }
-    .mockup-bar-fill.low  { background: #44cc77; }
+    .mockup-bar-fill { height: 100%; border-radius: 2px; }
+    .mockup-bar-fill.high { background: var(--flag); }
+    .mockup-bar-fill.mid  { background: var(--accent); }
+    .mockup-bar-fill.low  { background: var(--clear); }
 
     .mockup-score-val {
       font-size: 0.72rem;
-      color: #aaa;
+      color: #b8bcb4;
       width: 28px;
       text-align: right;
       font-family: var(--mono);
       flex-shrink: 0;
     }
 
-    .mockup-divider { border: none; border-top: 1px solid #1c1c1c; margin: 14px 0; }
+    .mockup-divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
 
     .mockup-issues-label {
       font-size: 0.68rem;
-      color: #444;
+      color: var(--faint);
       text-transform: uppercase;
       letter-spacing: 0.8px;
       font-family: var(--mono);
@@ -287,13 +323,13 @@
       gap: 8px;
       margin-bottom: 7px;
       font-size: 0.75rem;
-      color: #666;
+      color: var(--muted);
       line-height: 1.5;
     }
 
     .mockup-issue-dot {
       width: 5px; height: 5px; border-radius: 50%;
-      background: #ff4d4d; flex-shrink: 0; margin-top: 5px; opacity: 0.7;
+      background: var(--flag); flex-shrink: 0; margin-top: 5px; opacity: 0.7;
     }
 
     .features-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -302,11 +338,13 @@
     .section-label {
       font-family: var(--mono);
       font-size: 0.7rem;
-      color: var(--muted);
+      color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin-bottom: 36px;
     }
+    .section-label::before { content: '['; margin-right: 6px; opacity: .55; }
+    .section-label::after  { content: ']'; margin-left: 6px; opacity: .55; }
 
     .grid {
       display: grid;
@@ -316,16 +354,17 @@
       overflow: hidden;
     }
 
-    .cell { padding: 36px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cell { padding: 36px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    .cell:hover { background: var(--surface); }
     .cell:nth-child(2n)            { border-right: none; }
     .cell:nth-child(3), .cell:nth-child(4) { border-bottom: none; }
 
-    .cell-num { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); opacity: 0.6; margin-bottom: 14px; }
-    .cell h3  { font-size: 0.92rem; font-weight: 600; color: var(--text); letter-spacing: -0.2px; margin-bottom: 8px; }
+    .cell-tag { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 14px; }
+    .cell h3  { font-size: 0.92rem; font-weight: 600; color: var(--text); letter-spacing: -0.1px; margin-bottom: 8px; }
     .cell p   { font-size: 0.835rem; color: var(--muted); line-height: 1.7; }
 
     .cta-wrap { text-align: center; padding: 100px 24px; }
-    .cta-wrap h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -1.5px; color: #fff; margin-bottom: 12px; }
+    .cta-wrap h2 { font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; letter-spacing: -0.5px; color: #fff; margin-bottom: 12px; }
     .cta-wrap p  { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
 
     footer {
@@ -335,20 +374,46 @@
       justify-content: space-between;
       padding: 20px 48px;
     }
-    .footer-left { font-size: 0.8rem; font-weight: 600; color: #242424; }
+    .footer-left { font-size: 0.8rem; font-weight: 600; color: var(--faint); }
     .footer-right {
       display: flex;
       align-items: center;
       gap: 20px;
       font-size: 0.75rem;
-      color: #242424;
+      color: var(--faint);
     }
-    .footer-right a { color: #383838; text-decoration: none; }
+    .footer-right a { color: var(--faint); text-decoration: none; }
     .footer-right a:hover { color: var(--muted); }
 
     @media (max-width: 680px) {
       nav { padding: 0 20px; }
-      .nav-links { gap: 16px; }
+
+      .nav-burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+      }
+      .nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--text); }
+
+      .nav-links {
+        position: fixed;
+        top: 56px; left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        transition: max-height 0.22s ease;
+      }
+      .nav-toggle:checked ~ .nav-links { max-height: 260px; }
+      .nav-links a { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+
       .hero { padding: 88px 20px 72px; }
       .grid { grid-template-columns: 1fr; }
       .cell { border-right: none; }
@@ -363,25 +428,25 @@
 
 <nav>
   <a href="index.html" class="logo"><img src="logo.png" alt="AIVerify"><span>AIVerify</span></a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="product.html">Product</a>
     <a href="accuracy.html">Accuracy</a>
     <a href="pricing.html">Pricing</a>
+  </div>
+  <div class="nav-actions">
     <a href="https://github.com/AIVerify1/aiverify-releases/releases/download/v1.0.5/AIVerify_Setup_1.0.5.exe" class="btn btn-primary">Download</a>
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></label>
   </div>
 </nav>
 
 <section class="hero">
-  <div class="hero-grid"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow">
-      <span class="dot"></span>
-      AI Content Detection &mdash; Windows
-    </div>
+    <div class="hero-eyebrow">Windows &middot; AI Content Detection</div>
 
     <h1>Honest AI detection.<br>We show our work.</h1>
-    <p class="hero-sub">No save, no upload &mdash; press a hotkey, select anything on your screen, and get a full evidence breakdown in seconds. Not just a verdict.</p>
+    <p class="hero-sub">No save, no upload. Press a hotkey, select anything on your screen, and get a full evidence breakdown in seconds, not just a verdict.</p>
 
     <div class="scan-counter">
       <span class="pulse"></span>
@@ -402,8 +467,8 @@
 
     <p class="hero-meta">Windows 10 / 11 &nbsp;&middot;&nbsp; If prompted, click &ldquo;More info&rdquo; &rarr; &ldquo;Run anyway&rdquo;</p>
 
-    <div class="app-mockup-wrap">
-      <img src="demo.gif" alt="AIVerify detecting AI-generated content" style="width:100%;border-radius:10px;box-shadow:0 32px 80px rgba(0,0,0,0.6);">
+    <div class="app-mockup-wrap bracket-frame">
+      <img src="demo.gif" alt="AIVerify detecting AI-generated content" style="width:100%;border-radius:8px;box-shadow:0 32px 80px rgba(0,0,0,0.6);">
     </div>
   </div>
 </section>
@@ -413,28 +478,28 @@
     <div class="section-label">What it detects</div>
     <div class="grid">
       <div class="cell">
-        <div class="cell-num">01</div>
+        <div class="cell-tag">[IMAGE]</div>
         <h3>Images</h3>
-        <p>Capture any screen region instantly. Get a full breakdown of visual artifacts, metadata anomalies, and compression signals &mdash; not just a score.</p>
+        <p>Capture any screen region instantly and get a full breakdown of visual artifacts, metadata anomalies, and compression signals, not just a score.</p>
       </div>
       <div class="cell">
-        <div class="cell-num">02</div>
+        <div class="cell-tag">[TEXT]</div>
         <h3>Text</h3>
         <p>Paste any text or analyze your clipboard. See exactly which AI writing patterns and structural tells were detected.</p>
       </div>
       <div class="cell">
-        <div class="cell-num">03</div>
+        <div class="cell-tag">[VIDEO]</div>
         <h3>Video</h3>
         <p>Select any screen region and record it. Multiple frames analyzed and cross-referenced with individual signal breakdowns.</p>
       </div>
       <div class="cell">
-        <div class="cell-num">04</div>
+        <div class="cell-tag">[REPORT]</div>
         <h3>Full Breakdown</h3>
         <p>Every verdict shows which signals fired, their individual weights, and why the conclusion was reached. Something you can actually cite.</p>
       </div>
     </div>
   </div>
-    <p style="text-align:center;margin-top:28px;font-size:0.8rem;color:#383838;">Wondering how accurate it is? <a href="accuracy.html" style="color:#525252;text-decoration:underline;">We publish our false positive rate.</a></p>
+    <p style="text-align:center;margin-top:28px;font-size:0.8rem;color:var(--faint);">Wondering how accurate it is? <a href="accuracy.html" style="color:var(--muted);text-decoration:underline;">We publish our false positive rate.</a></p>
   </div>
 </div>
 
@@ -455,4 +520,3 @@
 
 </body>
 </html>
-
