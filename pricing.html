@@ -13,9 +13,10 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --accent:        #d9973f;
-      --accent-dim:    rgba(217,151,63,0.12);
-      --accent-border: rgba(217,151,63,0.3);
+      --accent:        #6c5ce9;
+      --mid:           #d9973f;
+      --accent-dim:    rgba(108,92,233,0.12);
+      --accent-border: rgba(108,92,233,0.3);
       --flag:          #e2593f;
       --clear:         #5fae6f;
       --bg:      #0b0c0a;
@@ -65,7 +66,7 @@
       text-decoration: none; padding: 7px 18px; border-radius: 4px;
       font-size: 0.82rem; font-weight: 600; transition: opacity 0.12s; white-space: nowrap;
     }
-    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { opacity: 0.82; }
     .btn-outline { border: 1px solid var(--border); color: var(--text); background: transparent; }
     .btn-outline:hover { border-color: var(--muted); background: var(--surface); }
@@ -137,7 +138,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--accent);
-      color: var(--bg);
+      color: #fff;
       font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
