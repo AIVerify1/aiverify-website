@@ -9,22 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --accent:        #e2b84d;
-      --mid:           #e08a3c;
-      --accent-dim:    rgba(226,184,77,0.12);
-      --accent-border: rgba(226,184,77,0.3);
-      --flag:          #cf5a68;
-      --clear:         #6aae7c;
-      --bg:      #09080a;
-      --surface: #100f12;
-      --border:  #211f24;
-      --text:    #ece7e0;
-      --muted:   #a19b94;
-      --faint:   #4f4a47;
       --font:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --display: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
       --mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
@@ -45,7 +34,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px; height: 56px;
       border-bottom: 1px solid var(--border);
-      background: rgba(9,8,10,0.9);
+      background: var(--nav-backdrop);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     }
 
@@ -58,7 +47,7 @@
     .nav-actions { display: flex; align-items: center; gap: 16px; }
 
     .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.12s; }
+    .nav-links a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; transition: color 0.12s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
     .btn {
@@ -66,10 +55,10 @@
       text-decoration: none; padding: 7px 18px; border-radius: 4px;
       font-size: 0.82rem; font-weight: 600; transition: opacity 0.12s; white-space: nowrap;
     }
-    .btn-primary { background: var(--accent); color: #1a1408; }
-    .btn-primary:hover { opacity: 0.82; }
+    .btn-primary { background: var(--accent); color: var(--on-accent); }
+    .btn-primary:hover { background: var(--accent-hover); }
     .btn-outline { border: 1px solid var(--border); color: var(--text); background: transparent; }
-    .btn-outline:hover { border-color: var(--muted); background: var(--surface); }
+    .btn-outline:hover { border-color: var(--text-muted); background: var(--surface); }
     .btn-lg { padding: 12px 28px; font-size: 0.92rem; }
     .btn-full { width: 100%; justify-content: center; }
 
@@ -85,10 +74,10 @@
     .page-header h1 {
       font-family: var(--display);
       font-size: clamp(2.1rem, 4.4vw, 3.1rem); font-weight: 700;
-      letter-spacing: -0.5px; color: #fff; margin-bottom: 16px;
+      letter-spacing: -0.5px; color: var(--text); margin-bottom: 16px;
     }
 
-    .page-header p { font-size: 0.95rem; color: var(--muted); line-height: 1.75; }
+    .page-header p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; }
 
     /* Pricing cards */
     .pricing-section { padding: 20px 48px 80px; }
@@ -109,7 +98,7 @@
 
     .plan.featured {
       border-color: var(--accent);
-      background: var(--accent-dim);
+      background: var(--accent-tint);
     }
 
     /* Bracket frame: signature corner marks, reserved for the featured plan */
@@ -138,7 +127,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--accent);
-      color: #1a1408;
+      color: var(--on-accent);
       font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -157,22 +146,22 @@
       margin-bottom: 20px;
     }
 
-    .plan-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .plan-subtitle { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; font-family: var(--mono); }
+    .plan-name { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .plan-subtitle { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 16px; font-family: var(--mono); }
 
     .plan-price {
       font-family: var(--display);
       font-size: 2.6rem;
       font-weight: 700;
       letter-spacing: -1px;
-      color: #fff;
+      color: var(--text);
       line-height: 1;
       margin-bottom: 4px;
     }
 
-    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0; }
 
-    .plan-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+    .plan-desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; }
 
     .plan-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 24px; }
 
@@ -183,12 +172,12 @@
       align-items: flex-start;
       gap: 10px;
       font-size: 0.85rem;
-      color: var(--muted);
+      color: var(--text-muted);
       margin-bottom: 12px;
     }
 
     .plan-features li.active { color: var(--text); }
-    .plan-features li.inactive { color: var(--faint); }
+    .plan-features li.inactive { color: var(--text-disabled); }
 
     .check {
       width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px;
@@ -198,7 +187,7 @@
 
     .cross {
       width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px;
-      stroke: var(--faint); fill: none; stroke-width: 2.5;
+      stroke: var(--text-disabled); fill: none; stroke-width: 2.5;
       stroke-linecap: round; stroke-linejoin: round;
     }
 
@@ -210,23 +199,23 @@
     .faq-item:first-of-type { border-top: 1px solid var(--border); margin-top: 36px; }
 
     .faq-q { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-    .faq-a { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .faq-a { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
 
     footer {
       border-top: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
     }
-    .footer-left  { font-size: 0.8rem; font-weight: 600; color: var(--faint); }
+    .footer-left  { font-size: 0.8rem; font-weight: 600; color: var(--text-faint); }
     .footer-right {
       display: flex;
       align-items: center;
       gap: 20px;
       font-size: 0.75rem;
-      color: var(--faint);
+      color: var(--text-faint);
     }
-    .footer-right a { color: var(--faint); text-decoration: none; }
-    .footer-right a:hover { color: var(--muted); }
+    .footer-right a { color: var(--text-faint); text-decoration: none; }
+    .footer-right a:hover { color: var(--text-muted); }
 
     @media (max-width: 680px) {
       nav { padding: 0 20px; }

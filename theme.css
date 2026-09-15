@@ -1,0 +1,57 @@
+/* AIVerify color system. Canonical spec lives in CLAUDE.md. */
+:root {
+  --bg: #090a0c;
+  --surface: #0f1114;
+  --border: #1f2328;
+  --border-strong: #2b3138;
+  --text: #e6eaec;
+  --text-muted: #98a2a8;
+  --text-faint: #79838b;      /* smallest readable text */
+  --text-disabled: #4a525a;   /* disabled states and decoration only, never content */
+  --accent: #5fb9c9;
+  --accent-hover: #79c6d4;
+  --accent-tint: rgba(95, 185, 201, 0.12);
+  --accent-border: rgba(95, 185, 201, 0.3);
+  --on-accent: #0a2127;
+  --verdict-ai: #cf5a68;
+  --verdict-uncertain: #e08a3c;
+  --verdict-human: #6aae7c;
+
+  /* Derived: verdict badge fills (12%) and borders (35%) */
+  --verdict-ai-tint: rgba(207, 90, 104, 0.12);
+  --verdict-ai-border: rgba(207, 90, 104, 0.35);
+  --verdict-uncertain-tint: rgba(224, 138, 60, 0.12);
+  --verdict-uncertain-border: rgba(224, 138, 60, 0.35);
+  --verdict-human-tint: rgba(106, 174, 124, 0.12);
+  --verdict-human-border: rgba(106, 174, 124, 0.35);
+
+  /* Chrome and depth */
+  --nav-backdrop: rgba(9, 10, 12, 0.9);
+  --shadow-lg: 0 32px 80px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --chrome-close: #ff5f56;
+  --chrome-minimize: #ffbd2e;
+  --chrome-zoom: #27c93f;
+}
+
+/* Verdict badge: always icon + word, never color alone.
+   <span class="verdict ai"><svg class="verdict-icon" viewBox="0 0 24 24">...</svg>AI-generated</span> */
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.verdict-icon {
+  width: 12px; height: 12px; flex-shrink: 0;
+  stroke: currentColor; fill: none; stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.verdict.ai        { color: var(--verdict-ai);        background: var(--verdict-ai-tint);        border-color: var(--verdict-ai-border); }
+.verdict.uncertain { color: var(--verdict-uncertain); background: var(--verdict-uncertain-tint); border-color: var(--verdict-uncertain-border); }
+.verdict.human     { color: var(--verdict-human);     background: var(--verdict-human-tint);     border-color: var(--verdict-human-border); }

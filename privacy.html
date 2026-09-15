@@ -9,22 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --accent:        #e2b84d;
-      --mid:           #e08a3c;
-      --accent-dim:    rgba(226,184,77,0.12);
-      --accent-border: rgba(226,184,77,0.3);
-      --flag:          #cf5a68;
-      --clear:         #6aae7c;
-      --bg:      #09080a;
-      --surface: #100f12;
-      --border:  #211f24;
-      --text:    #ece7e0;
-      --muted:   #a19b94;
-      --faint:   #4f4a47;
       --font:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --display: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
       --mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
@@ -50,7 +39,7 @@
       padding: 0 48px;
       height: 56px;
       border-bottom: 1px solid var(--border);
-      background: rgba(9,8,10,0.9);
+      background: var(--nav-backdrop);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -64,7 +53,7 @@
     .nav-actions { display: flex; align-items: center; gap: 16px; }
 
     .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.12s; }
+    .nav-links a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; transition: color 0.12s; }
     .nav-links a:hover { color: var(--text); }
 
     .btn {
@@ -72,8 +61,8 @@
       text-decoration: none; padding: 7px 18px; border-radius: 4px;
       font-size: 0.82rem; font-weight: 600; transition: opacity 0.12s; white-space: nowrap;
     }
-    .btn-primary { background: var(--accent); color: #1a1408; }
-    .btn-primary:hover { opacity: 0.82; }
+    .btn-primary { background: var(--accent); color: var(--on-accent); }
+    .btn-primary:hover { background: var(--accent-hover); }
 
     .page-header {
       padding: 72px 48px 52px;
@@ -97,13 +86,13 @@
       font-size: clamp(2rem, 4vw, 2.6rem);
       font-weight: 700;
       letter-spacing: -0.5px;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 14px;
     }
 
     .page-header .meta {
       font-size: 0.82rem;
-      color: var(--muted);
+      color: var(--text-muted);
     }
 
     .content {
@@ -124,14 +113,14 @@
     .content h2 {
       font-size: 1rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 14px;
       letter-spacing: -0.2px;
     }
 
     .content p {
       font-size: 0.88rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.8;
       margin-bottom: 12px;
     }
@@ -145,7 +134,7 @@
 
     .content ul li {
       font-size: 0.88rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.8;
       padding-left: 18px;
       position: relative;
@@ -161,13 +150,13 @@
     }
 
     .highlight {
-      background: var(--accent-dim);
+      background: var(--accent-tint);
       border-left: 2px solid var(--accent);
       border-radius: 0 4px 4px 0;
       padding: 14px 18px;
       margin: 16px 0;
       font-size: 0.85rem;
-      color: #cfc9c2;
+      color: var(--text);
       line-height: 1.75;
     }
 
@@ -188,7 +177,7 @@
 
     .third-party-card p {
       font-size: 0.83rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.7;
       margin-bottom: 6px;
     }
@@ -206,18 +195,18 @@
       padding: 20px 48px;
     }
 
-    .footer-left { font-size: 0.8rem; font-weight: 600; color: var(--faint); }
+    .footer-left { font-size: 0.8rem; font-weight: 600; color: var(--text-faint); }
 
     .footer-right {
       display: flex;
       align-items: center;
       gap: 20px;
       font-size: 0.75rem;
-      color: var(--faint);
+      color: var(--text-faint);
     }
 
-    .footer-right a { color: var(--faint); text-decoration: none; }
-    .footer-right a:hover { color: var(--muted); }
+    .footer-right a { color: var(--text-faint); text-decoration: none; }
+    .footer-right a:hover { color: var(--text-muted); }
 
     @media (max-width: 680px) {
       nav { padding: 0 20px; }

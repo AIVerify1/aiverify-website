@@ -9,22 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --accent:        #e2b84d;
-      --mid:           #e08a3c;
-      --accent-dim:    rgba(226,184,77,0.12);
-      --accent-border: rgba(226,184,77,0.3);
-      --flag:          #cf5a68;
-      --clear:         #6aae7c;
-      --bg:      #09080a;
-      --surface: #100f12;
-      --border:  #211f24;
-      --text:    #ece7e0;
-      --muted:   #a19b94;
-      --faint:   #4f4a47;
       --font:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --display: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
       --mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
@@ -50,7 +39,7 @@
       padding: 0 48px;
       height: 56px;
       border-bottom: 1px solid var(--border);
-      background: rgba(9,8,10,0.9);
+      background: var(--nav-backdrop);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -64,7 +53,7 @@
     .nav-actions { display: flex; align-items: center; gap: 16px; }
 
     .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.12s; }
+    .nav-links a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; transition: color 0.12s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
     .btn {
@@ -72,8 +61,8 @@
       text-decoration: none; padding: 7px 18px; border-radius: 4px;
       font-size: 0.82rem; font-weight: 600; transition: opacity 0.12s; white-space: nowrap;
     }
-    .btn-primary { background: var(--accent); color: #1a1408; }
-    .btn-primary:hover { opacity: 0.82; }
+    .btn-primary { background: var(--accent); color: var(--on-accent); }
+    .btn-primary:hover { background: var(--accent-hover); }
     .btn-lg { padding: 10px 26px; font-size: 0.88rem; }
 
     .page-header {
@@ -98,13 +87,13 @@
       font-size: clamp(2.1rem, 4.4vw, 3.1rem);
       font-weight: 700;
       letter-spacing: -0.5px;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 16px;
     }
 
     .page-header p {
       font-size: 1rem;
-      color: var(--muted);
+      color: var(--text-muted);
       max-width: 480px;
       line-height: 1.75;
     }
@@ -149,28 +138,28 @@
       font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.3px;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 14px;
     }
 
     .screenshot-text p {
       font-size: 0.88rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.75;
       margin-bottom: 12px;
     }
 
     /* App mockup */
     .app-mockup {
-      background: #131115;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      box-shadow: var(--shadow-md);
     }
 
     .mockup-titlebar {
-      background: #0c0b0e;
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
       padding: 10px 16px;
       display: flex;
@@ -178,33 +167,17 @@
       gap: 6px;
     }
     .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .mockup-dot.r { background: #ff5f56; }
-    .mockup-dot.y { background: #ffbd2e; }
-    .mockup-dot.g { background: #27c93f; }
-    .mockup-title { margin-left: 8px; font-size: 0.72rem; color: var(--faint); font-family: var(--mono); }
+    .mockup-dot.r { background: var(--chrome-close); }
+    .mockup-dot.y { background: var(--chrome-minimize); }
+    .mockup-dot.g { background: var(--chrome-zoom); }
+    .mockup-title { margin-left: 8px; font-size: 0.72rem; color: var(--text-faint); font-family: var(--mono); }
 
     .mockup-body { padding: 18px 20px 20px; }
 
-    .mockup-verdict {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 4px;
-      padding: 6px 12px;
-      margin-bottom: 14px;
-    }
-    .mockup-verdict.ai { background: rgba(207,90,104,0.12); border: 1px solid rgba(207,90,104,0.28); }
-    .mockup-verdict.human { background: rgba(106,174,124,0.12); border: 1px solid rgba(106,174,124,0.28); }
 
-    .mockup-verdict-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .mockup-verdict.ai .mockup-verdict-dot { background: var(--flag); }
-    .mockup-verdict.human .mockup-verdict-dot { background: var(--clear); }
 
-    .mockup-verdict-text { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-    .mockup-verdict.ai .mockup-verdict-text { color: var(--flag); }
-    .mockup-verdict.human .mockup-verdict-text { color: var(--clear); }
 
-    .mockup-confidence { font-size: 0.7rem; color: var(--faint); margin-left: 4px; }
+    .mockup-confidence { font-size: 0.7rem; color: var(--text-faint); margin-left: 4px; }
 
     .mockup-scores { margin-bottom: 14px; }
 
@@ -217,7 +190,7 @@
 
     .mockup-score-label {
       font-size: 0.7rem;
-      color: var(--faint);
+      color: var(--text-faint);
       width: 105px;
       flex-shrink: 0;
       font-family: var(--mono);
@@ -232,14 +205,14 @@
     }
 
     .mockup-bar-fill { height: 100%; border-radius: 2px; }
-    .mockup-bar-fill.high { background: var(--flag); }
-    .mockup-bar-fill.mid  { background: var(--mid); }
-    .mockup-bar-fill.low  { background: var(--clear); }
+    .mockup-bar-fill.high { background: var(--verdict-ai); }
+    .mockup-bar-fill.mid  { background: var(--verdict-uncertain); }
+    .mockup-bar-fill.low  { background: var(--verdict-human); }
     .mockup-bar-fill.accent { background: var(--accent); }
 
     .mockup-score-val {
       font-size: 0.7rem;
-      color: #b9b3ac;
+      color: var(--text-muted);
       width: 26px;
       text-align: right;
       font-family: var(--mono);
@@ -250,7 +223,7 @@
 
     .mockup-issues-label {
       font-size: 0.65rem;
-      color: var(--faint);
+      color: var(--text-faint);
       text-transform: uppercase;
       letter-spacing: 0.8px;
       font-family: var(--mono);
@@ -263,7 +236,7 @@
       gap: 8px;
       margin-bottom: 6px;
       font-size: 0.72rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.45;
     }
 
@@ -271,7 +244,7 @@
       width: 5px; height: 5px; border-radius: 50%;
       flex-shrink: 0; margin-top: 4px; opacity: 0.7;
     }
-    .mockup-issue-dot.red { background: var(--flag); }
+    .mockup-issue-dot.red { background: var(--verdict-ai); }
     .mockup-issue-dot.orange { background: var(--accent); }
 
     /* Features list */
@@ -309,7 +282,7 @@
     }
 
     .feature-item h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 8px; }
-    .feature-item p  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+    .feature-item p  { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     /* Hotkeys section */
     .hotkeys-section {
@@ -342,29 +315,29 @@
       flex-shrink: 0;
     }
 
-    .hotkey-desc { font-size: 0.85rem; color: var(--muted); }
+    .hotkey-desc { font-size: 0.85rem; color: var(--text-muted); }
 
     /* CTA */
     .cta-wrap { text-align: center; padding: 80px 24px; border-top: 1px solid var(--border); }
-    .cta-wrap h2 { font-family: var(--display); font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -0.5px; color: #fff; margin-bottom: 12px; }
-    .cta-wrap p  { font-size: 0.88rem; color: var(--muted); margin-bottom: 28px; }
-    .cta-note { margin-top: 12px; font-size: 0.78rem; color: var(--faint); font-family: var(--mono); }
+    .cta-wrap h2 { font-family: var(--display); font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -0.5px; color: var(--text); margin-bottom: 12px; }
+    .cta-wrap p  { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 28px; }
+    .cta-note { margin-top: 12px; font-size: 0.78rem; color: var(--text-faint); font-family: var(--mono); }
 
     footer {
       border-top: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
     }
-    .footer-left  { font-size: 0.8rem; font-weight: 600; color: var(--faint); }
+    .footer-left  { font-size: 0.8rem; font-weight: 600; color: var(--text-faint); }
     .footer-right {
       display: flex;
       align-items: center;
       gap: 20px;
       font-size: 0.75rem;
-      color: var(--faint);
+      color: var(--text-faint);
     }
-    .footer-right a { color: var(--faint); text-decoration: none; }
-    .footer-right a:hover { color: var(--muted); }
+    .footer-right a { color: var(--text-faint); text-decoration: none; }
+    .footer-right a:hover { color: var(--text-muted); }
 
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
@@ -434,14 +407,14 @@
       <p>Every scan shows a confidence score alongside the specific signals that triggered it: AI-generated metadata, compression artifacts, or writing patterns.</p>
       <p>You see exactly why the verdict was reached, not just what it is.</p>
     </div>
-    <img class="bracket-frame" src="app-result-ai.png" alt="AIVerify result showing AI Generated verdict" style="width:100%;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+    <img class="bracket-frame" src="app-result-ai.png" alt="AIVerify result showing AI Generated verdict" style="width:100%;border-radius:8px;box-shadow:var(--shadow-md);">
   </div>
 </section>
 
 <!-- Section 2: Multiple detection methods -->
 <section class="screenshot-section" style="background: var(--surface);">
   <div class="screenshot-inner">
-    <img class="bracket-frame" src="app-result-real.png" alt="AIVerify result showing Likely Real verdict" style="width:100%;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+    <img class="bracket-frame" src="app-result-real.png" alt="AIVerify result showing Likely Real verdict" style="width:100%;border-radius:8px;box-shadow:var(--shadow-md);">
     <div class="screenshot-text">
       <h2>Multiple detection methods</h2>
       <p>AIVerify combines visual AI analysis, EXIF metadata inspection, and error-level analysis (ELA) into a single combined score.</p>
@@ -457,7 +430,7 @@
       <h2>See it in action</h2>
       <p>Select a screen region with a hotkey, drop a file, or paste a URL. AIVerify runs the analysis and returns a verdict in seconds.</p>
     </div>
-    <img class="bracket-frame" src="demo.gif" alt="AIVerify scanning an image and returning a verdict" style="width:100%;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+    <img class="bracket-frame" src="demo.gif" alt="AIVerify scanning an image and returning a verdict" style="width:100%;border-radius:8px;box-shadow:var(--shadow-md);">
   </div>
 </section>
 
@@ -520,7 +493,7 @@
         <span class="hotkey-desc">Analyze text currently copied to clipboard</span>
       </div>
     </div>
-    <p style="margin-top: 14px; font-size: 0.78rem; color: var(--muted); font-family: var(--mono);">All hotkeys can be customized in the app settings.</p>
+    <p style="margin-top: 14px; font-size: 0.78rem; color: var(--text-muted); font-family: var(--mono);">All hotkeys can be customized in the app settings.</p>
   </div>
 </section>
 
